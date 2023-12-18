@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.hogyu.dao.ClientsDao">
+	
+	<select id="selectAll" parameterType="String" resultType="Clients">
+		select * from clients
+		where productId = #{productId}
+		group by orderId
+	</select>
+	
+	<select id="selectBuyList" parameterType="String" resultType="Clients">
+		select * from clients
+		where userId = #{userId}
+	</select>
+	
+	<select id="selectOne" parameterType="String" resultType="Clients">
+		SELECT *
+		FROM clients
+		WHERE orderId = #{orderId}
+		group by orderId;
+	</select>
+
+	<update id="update" parameterType="String">
+		UPDATE clients
+		SET  partner = partner+1
+		WHERE orderId = #{orderId}
+	</update>
+	
+	<insert id="insertClients" parameterType="Clients">
+		INSERT INTO clients (orderId ,userId, name, phoneNum, address, productId,productName, cnt, totalPrice, partner)
+		VALUES ( #{orderId}, #{userId}, #{name}, #{phoneNum}, #{address}, #{productId}, #{productName}, #{cnt}, #{totalPrice}, #{partner})
+	</insert>
+
+</mapper>

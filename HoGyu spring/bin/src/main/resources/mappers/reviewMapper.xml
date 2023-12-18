@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.hogyu.dao.ReviewDao">
+
+	<!-- 2. 게시글 등록 -->
+	<insert id="insertReview" parameterType="Review">
+		INSERT INTO review (writer, productId, content, star)
+		VALUES ( #{writer}, #{productId}, #{content}, #{star})
+	</insert>
+
+	<!-- 3. 게시글 수정 -->
+	<update id="updateReview" parameterType="Review">
+		UPDATE review
+		SET content = #{content}
+		WHERE reviewId = #{reviewId}
+	</update>
+	
+	<!-- 4. 상세글 조회 -->
+	<select id="selectOne" parameterType="int" resultType="Review">
+		SELECT *
+		FROM review
+		WHERE reviewId = #{reviewId};
+	</select>
+	
+	<!-- 5. 게시글 삭제 -->
+	<delete id="deleteReview" parameterType="int">
+		DELETE FROM review
+		WHERE reviewId = #{reviewId}
+	</delete>
+	
+	<!-- 6.비디오 id에 맞게 리뷰 리스트 츌력 -->
+	<select id="selectAll" parameterType="String" resultType="Review">
+		select * from review
+		where productId = #{productId}
+	</select>
+
+</mapper>
